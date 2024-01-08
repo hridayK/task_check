@@ -15,10 +15,14 @@ void main() async {
         await getDatabasesPath(),
         'tasks.db',
       ),
-      // onCreate: (db, version) {
-      //   db.execute('');
-      //   version = 1;
-      // },
+      version: 1,
+      onCreate: (db, version) {
+        db.execute(
+          '''CREATE TABLE IF NOT EXISTS tasks(id INTEGER PRIMARY KEY AUTOINCREMENT
+          , title TEXT, 
+          desc TEXT)''',
+        );
+      },
     );
   } catch (err) {
     if (kDebugMode) {
@@ -46,6 +50,7 @@ class MyApp extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+              // Custom App Bar
               SizedBox(
                 height: MediaQuery.sizeOf(context).height * 0.03,
               ),
@@ -76,6 +81,8 @@ class MyApp extends StatelessWidget {
                   color: Colors.grey.shade800,
                 ),
               ),
+              // TODO: Body of tasks
+              //....
             ],
           ),
         ),
