@@ -10,6 +10,35 @@ class AddTask extends StatefulWidget {
 }
 
 class _AddTaskState extends State<AddTask> {
+  final _formKey = GlobalKey<FormState>();
+  late final TextEditingController _titleController;
+  late final TextEditingController _descController;
+
+  Future<void> submitForm() async {
+    if (_formKey.currentState!.validate()) {
+      await addTask(
+        task: Task(
+          title: _titleController.text,
+          desc: _descController.text,
+        ),
+      );
+    }
+  }
+
+  @override
+  void initState() {
+    _titleController = TextEditingController();
+    _descController = TextEditingController();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _titleController.dispose();
+    _descController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,6 +54,7 @@ class _AddTaskState extends State<AddTask> {
         ),
       ),
       body: Form(
+        key: _formKey,
         child: SizedBox(
           width: MediaQuery.sizeOf(context).width,
           child: Padding(
@@ -54,6 +84,13 @@ class _AddTaskState extends State<AddTask> {
                 ),
                 const SizedBox(height: 8.0),
                 TextFormField(
+                  controller: _titleController,
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'Please fill a Title';
+                    }
+                    return null;
+                  },
                   decoration: InputDecoration(
                     hintText: 'Enter task title',
                     filled: true,
@@ -78,6 +115,7 @@ class _AddTaskState extends State<AddTask> {
                 ),
                 const SizedBox(height: 8.0),
                 TextFormField(
+                  controller: _descController,
                   maxLines: 4,
                   decoration: InputDecoration(
                     hintText: 'Enter task title',
@@ -94,15 +132,16 @@ class _AddTaskState extends State<AddTask> {
                   height: MediaQuery.sizeOf(context).height * 0.05,
                 ),
                 ElevatedButton(
-                  onPressed: () async {},
+                  onPressed: () async {
+                    await submitForm();
+                  },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blueAccent, // Dark background color
-                    foregroundColor: Colors.white, // Text color
-                    elevation: 8.0, // Button elevation
-                    padding: const EdgeInsets.all(16.0), // Button padding
+                    backgroundColor: Colors.blueAccent,
+                    foregroundColor: Colors.white,
+                    elevation: 8.0,
+                    padding: const EdgeInsets.all(16.0),
                     shape: RoundedRectangleBorder(
-                      borderRadius:
-                          BorderRadius.circular(10.0), // Button border radius
+                      borderRadius: BorderRadius.circular(10.0),
                     ),
                   ),
                   child: const Text('Add Task'),
