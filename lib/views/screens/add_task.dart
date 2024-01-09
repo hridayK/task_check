@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:task_check/controllers/task_controller.dart';
-import 'package:task_check/model/task.dart';
+import 'package:task_check/model/task_model.dart';
 
 class AddTask extends StatefulWidget {
   const AddTask({super.key});

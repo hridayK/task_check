@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
-import 'package:task_check/model/task.dart';
+import 'package:task_check/model/task_model.dart';
 
 Future<int> addTask({required TaskModel task}) async {
   int status = 1;
