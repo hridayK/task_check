@@ -3,7 +3,7 @@ import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:task_check/model/task.dart';
 
-Future<int> addTask({required Task task}) async {
+Future<int> addTask({required TaskModel task}) async {
   int status = 1;
   final database = openDatabase(join(await getDatabasesPath(), 'tasks.db'));
   final db = await database;
@@ -40,15 +40,15 @@ Future<int> deleteTask({required int id}) async {
   return status;
 }
 
-Future<List<Task>> getTasks() async {
+Future<List<TaskModel>> getTasks() async {
   final database = openDatabase(join(await getDatabasesPath(), 'tasks.db'));
   final db = await database;
-  List<Task> tasks = [];
+  List<TaskModel> tasks = [];
   try {
     final List<Map<String, dynamic>> map = await db.query('tasks');
     for (var element in map) {
       tasks.add(
-        Task(
+        TaskModel(
           id: element['id'],
           title: element['title'],
           desc: element['desc'],

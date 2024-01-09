@@ -1,9 +1,9 @@
-class Task {
+class TaskModel {
   int? id;
   final String title;
   final String desc;
 
-  Task({this.id, required this.title, required this.desc});
+  TaskModel({this.id, required this.title, required this.desc});
 
   Map<String, dynamic> toMap() {
     return {

@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:task_check/controllers/task_controller.dart';
 import 'package:task_check/model/task.dart';
@@ -16,12 +17,22 @@ class _AddTaskState extends State<AddTask> {
 
   Future<void> submitForm() async {
     if (_formKey.currentState!.validate()) {
-      await addTask(
-        task: Task(
+      int x = await addTask(
+        task: TaskModel(
           title: _titleController.text,
           desc: _descController.text,
         ),
       );
+
+      if (x == 1) {
+        if (kDebugMode) {
+          print('added');
+        }
+      } else {
+        if (kDebugMode) {
+          print('error in adding');
+        }
+      }
     }
   }
 

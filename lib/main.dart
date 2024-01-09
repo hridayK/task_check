@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:task_check/views/screens/add_task.dart';
+import 'package:task_check/views/screens/home_screen.dart';
 import 'package:task_check/views/widgets/clock.dart';
 
 void main() async {
@@ -45,45 +46,50 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       home: Scaffold(
-        body: SizedBox(
-          width: MediaQuery.sizeOf(context).width,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              // Custom App Bar
-              SizedBox(
-                height: MediaQuery.sizeOf(context).height * 0.03,
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(8, 8, 8, 4),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Text(
-                      'ToDo List:',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
+        body: SingleChildScrollView(
+          child: SizedBox(
+            width: MediaQuery.sizeOf(context).width,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                // Custom App Bar
+                SizedBox(
+                  height: MediaQuery.sizeOf(context).height * 0.03,
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(8, 8, 8, 4),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text(
+                        'ToDo List:',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-                    ),
-                    SizedBox(
-                      width: MediaQuery.sizeOf(context).width * 0.4,
-                    ),
-                    const Clock(),
-                  ],
+                      SizedBox(
+                        width: MediaQuery.sizeOf(context).width * 0.4,
+                      ),
+                      const Clock(),
+                    ],
+                  ),
                 ),
-              ),
-              SizedBox(
-                width: MediaQuery.sizeOf(context).width * 0.9,
-                child: Divider(
-                  thickness: 2,
-                  color: Colors.grey.shade800,
+                SizedBox(
+                  width: MediaQuery.sizeOf(context).width * 0.9,
+                  child: Divider(
+                    thickness: 2,
+                    color: Colors.grey.shade800,
+                  ),
                 ),
-              ),
-              // TODO: Body of tasks
-              //....
-            ],
+                //Body
+                SizedBox(
+                  height: MediaQuery.sizeOf(context).height,
+                  child: const TasksHomeScreen(),
+                ),
+              ],
+            ),
           ),
         ),
         floatingActionButton: Builder(
